@@ -1,7 +1,9 @@
 import os, time, math, shutil, pyromod.listen
 from urllib.parse import unquote
+import youtube_dl
 from pySmartDL import SmartDL
 from urllib.error import HTTPError
+from youtube_dl import DownloadError
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from pyrogram.errors import BadRequest
@@ -17,11 +19,10 @@ BUTTONS = bool(os.environ['BUTTONS']) # Upload mode. If True: will send buttons 
 # Buttons
 START_BUTTONS=[
     [
-        InlineKeyboardButton("Source", url="https://github.com/X-Gorn/BulkLoader"),
-        InlineKeyboardButton("Project Channel", url="https://t.me/xTeamBots"),
+        InlineKeyboardButton("Source", url="https://github.com/arunsingh-creator/BulkLoader"),
+        InlineKeyboardButton("Owners", url="https://telegram.me/not_really_me"),
     ],
-    [InlineKeyboardButton("Author", url="https://t.me/xgorn")],
-]
+    
 
 CB_BUTTONS=[
     [
@@ -118,6 +119,21 @@ def download_file(url, dl_path):
         return True, filename
     except HTTPError as error:
         return False, error
+
+def utube_dl(link):
+  ytdl_opts = {
+    'format': 'bestvideo+bestaudio/best',
+    'geo_bypass_country': 'IN'
+  }
+  with youtube_dl.YoutubeDL(ytdl_opts) as ytdl:
+    try:
+      meta = ytdl.extract_info(link, download=True)
+    except DownloadError as e:
+      return False, str(e)
+    if path.endswith(('.avi', '.mov', '.flv', '.wmv', '.3gp','.mpeg', '.webm', '.mp4', '.mkv')) and \
+          path.startswith(ytdl.prepare_filename(meta)):
+        return True, path
+    return False, 'Something went wrong! No video file exists on server.'
 
 
 # https://github.com/MysteryBots/UnzipBot/blob/master/UnzipBot/functions.py
