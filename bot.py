@@ -17,7 +17,7 @@ AS_ZIP = bool(os.environ['AS_ZIP']) # Upload method. If True: will Zip all your 
 BUTTONS = bool(os.environ['BUTTONS']) # Upload mode. If True: will send buttons (Zip or One by One) instead of AZ_ZIP | If False: will do as you've fill on AZ_ZIP
 
 # Buttons
-START_BUTTONS
+START_BUTTONS= [
     
         InlineKeyboardButton("Source", url="https://github.com/arunsingh-creator/BulkLoader"),
         InlineKeyboardButton("Owners", url="https://telegram.me/not_really_me"),
