@@ -18,7 +18,7 @@ BUTTONS = bool(os.environ['BUTTONS']) # Upload mode. If True: will send buttons 
 
 # Buttons
 START_BUTTONS
-    [
+    
         InlineKeyboardButton("Source", url="https://github.com/arunsingh-creator/BulkLoader"),
         InlineKeyboardButton("Owners", url="https://telegram.me/not_really_me"),
     ],
